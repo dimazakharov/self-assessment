@@ -37,7 +37,7 @@ public class FileReadingExamples {
             int i;
             while ((i = fr.read()) != -1)
                 answer.append((char) i);
-            return answer.toString();
+            return answer.toString().replaceAll("(\r\n|\r)", "\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -56,6 +56,10 @@ public class FileReadingExamples {
         String s = FileReadingExamples.class.getClassLoader().getResource(name).getFile();
         if (SystemUtils.IS_OS_MAC)
             s = s.replaceAll("%20", "\\ ");
+        else
+            s = s.replaceAll("%20", " ");
+        if (SystemUtils.IS_OS_WINDOWS)
+            s = s.substring(1);
         return s;
     }
 
