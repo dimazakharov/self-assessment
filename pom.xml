@@ -12,6 +12,7 @@
     <modules>
         <module>quick-sort</module>
         <module>read-files</module>
+        <module>custom-enum</module>
     </modules>
 
     <properties>
