@@ -9,7 +9,7 @@ public class Currency implements Comparable<Currency> {
     public static Currency RUB = new Currency("RUB");
     public static Currency USD = new Currency("USD");
     public static Currency EUR = new Currency("EUR"){
-
+        //nope
     };
 
 
@@ -43,9 +43,7 @@ public class Currency implements Comparable<Currency> {
     }
 
     public final Class<Currency> getDeclaringClass() {
-        Class<?> clazz = getClass();
-        Class<?> zuper = clazz.getSuperclass();
-        return (zuper == Enum.class) ? (Class<Currency>)clazz : (Class<Currency>)zuper;
+        return Currency.class;
     }
 
 
