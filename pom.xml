@@ -15,6 +15,8 @@
         <module>custom-enum</module>
         <module>jdbc-example</module>
         <module>figures</module>
+        <module>ping-pong</module>
+        <module>http-client</module>
     </modules>
 
     <properties>
