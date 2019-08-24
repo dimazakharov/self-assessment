@@ -17,6 +17,7 @@
         <module>figures</module>
         <module>ping-pong</module>
         <module>http-client</module>
+        <module>mini-junit</module>
     </modules>
 
     <properties>
