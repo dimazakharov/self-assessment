@@ -57,9 +57,12 @@ public class MiniJUnit {
     }
 
     private List<Method> getSuitableMethods(Class<?> aClass) {
-        List<Method> methodsListWithAnnotation = MethodUtils.getMethodsListWithAnnotation(aClass, testAnnotation, false, false);
-        methodsListWithAnnotation.removeIf(method -> method.getParameterCount() > 0);
-        return methodsListWithAnnotation;
+        List<Method> methods = MethodUtils.getMethodsListWithAnnotation(aClass, testAnnotation, false, false);
+        methods.removeIf(method -> method.getParameterCount() > 0);
+        methods.removeIf(method -> !Void.TYPE.equals(method.getReturnType()));
+
+
+        return methods;
     }
 
     private List<Class<?>> getSuitableClasses(String basePackage) {

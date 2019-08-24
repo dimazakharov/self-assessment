@@ -15,7 +15,8 @@ public class IncorrectMethods {
     }
 
     @Test
-    private Object withReturnTypeTest(){
+    public Object withReturnTypeTest(){
         return null;
     }
+
 }
