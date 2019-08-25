@@ -18,6 +18,7 @@
         <module>ping-pong</module>
         <module>http-client</module>
         <module>mini-junit</module>
+        <module>tree-traversal</module>
     </modules>
 
     <properties>
