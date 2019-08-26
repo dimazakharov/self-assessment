@@ -38,7 +38,6 @@ public class TCPPingPong {
                 do
                     in = client.receive();
                 while (!ping.equals(in));
-                System.out.println("TCPServer input - " + in);
                 client.send(pong);
             }
 

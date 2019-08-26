@@ -22,7 +22,6 @@ public class UDPPingPong  {
             do
                 in = udpServer.receive();
             while (!pong.equals(in));
-            System.out.println("UDPClient input - " + in);
 
             return in;
         }
@@ -41,7 +40,6 @@ public class UDPPingPong  {
                 do
                     in = udpServer.receive();
                 while (!ping.equals(in));
-                System.out.println("UDPServer input - " + in);
                 client.send(pong);
             }
 
