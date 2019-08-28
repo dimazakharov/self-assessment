@@ -19,6 +19,8 @@
         <module>http-client</module>
         <module>mini-junit</module>
         <module>tree-traversal</module>
+        <module>copy-on-write-array-list</module>
+        <module>copy-on-write-array-list</module>
     </modules>
 
     <properties>

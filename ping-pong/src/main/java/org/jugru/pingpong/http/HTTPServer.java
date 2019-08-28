@@ -62,9 +62,7 @@ class Handler extends AbstractHandler {
 
         if (!ping.equals(body))
             return false;
-        if (!"POST".equals(method))
-            return false;
-        return true;
+        return "POST".equals(method);
     }
 }
 
