@@ -3,13 +3,11 @@ package org.jugru.cowal;
 import com.google.common.collect.testing.SampleElements;
 import com.google.common.collect.testing.TestListGenerator;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class MyListGenerator implements TestListGenerator<String> {
+public abstract class AbstractTestListGenerator implements TestListGenerator<String> {
 
     @Override
     public SampleElements<String> samples() {
@@ -30,8 +28,10 @@ public class MyListGenerator implements TestListGenerator<String> {
         for (Object elementAsObject : elementsAsObjects) {
             castedElements[i++] = (String) elementAsObject;
         }
-        return new CopyOnWriteArrayList<>(Arrays.asList(castedElements));
+        return createListFromElements(Arrays.asList(castedElements));
     }
+
+    abstract List<String> createListFromElements(List<String> elements);
 
     @Override
     public String[] createArray(int length) {

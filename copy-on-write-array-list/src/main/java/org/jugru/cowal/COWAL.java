@@ -9,8 +9,15 @@ import java.util.stream.Stream;
 
 public class COWAL<E> implements List<E> {
 
-
     private List<E> list = new ArrayList<>();
+
+    public COWAL() {
+        this.list = new ArrayList<>();
+    }
+
+    public COWAL(List<E> list) {
+        this.list = new ArrayList<>(list);
+    }
 
     @Override
     public int size() {
@@ -152,6 +159,50 @@ public class COWAL<E> implements List<E> {
         return list.spliterator();
     }
 
+    public static <E1> List<E1> of() {
+        return List.of();
+    }
+
+    public static <E1> List<E1> of(E1 e1) {
+        return List.of(e1);
+    }
+
+    public static <E1> List<E1> of(E1 e1, E1 e2) {
+        return List.of(e1, e2);
+    }
+
+    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3) {
+        return List.of(e1, e2, e3);
+    }
+
+    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4) {
+        return List.of(e1, e2, e3, e4);
+    }
+
+    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5) {
+        return List.of(e1, e2, e3, e4, e5);
+    }
+
+    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5, E1 e6) {
+        return List.of(e1, e2, e3, e4, e5, e6);
+    }
+
+    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5, E1 e6, E1 e7) {
+        return List.of(e1, e2, e3, e4, e5, e6, e7);
+    }
+
+    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5, E1 e6, E1 e7, E1 e8) {
+        return List.of(e1, e2, e3, e4, e5, e6, e7, e8);
+    }
+
+    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5, E1 e6, E1 e7, E1 e8, E1 e9) {
+        return List.of(e1, e2, e3, e4, e5, e6, e7, e8, e9);
+    }
+
+    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5, E1 e6, E1 e7, E1 e8, E1 e9, E1 e10) {
+        return List.of(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);
+    }
+
     @SafeVarargs
     public static <E1> List<E1> of(E1... elements) {
         return List.of(elements);
@@ -184,5 +235,11 @@ public class COWAL<E> implements List<E> {
     @Override
     public void forEach(Consumer<? super E> action) {
         list.forEach(action);
+    }
+
+
+    @Override
+    public String toString() {
+        return list.toString();
     }
 }
