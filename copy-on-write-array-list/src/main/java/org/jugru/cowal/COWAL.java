@@ -1,5 +1,8 @@
 package org.jugru.cowal;
 
+import org.apache.commons.collections4.iterators.ArrayIterator;
+import org.apache.commons.collections4.iterators.ArrayListIterator;
+
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
@@ -9,7 +12,9 @@ import java.util.stream.Stream;
 
 public class COWAL<E> implements List<E> {
 
-    private List<E> list = new ArrayList<>();
+    private transient List<E> list;
+
+    private final Object lock = new Object();
 
     public COWAL() {
         this.list = new ArrayList<>();
@@ -36,7 +41,7 @@ public class COWAL<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return list.iterator();
+        return new ArrayIterator(list.toArray());
     }
 
     @Override
@@ -51,12 +56,22 @@ public class COWAL<E> implements List<E> {
 
     @Override
     public boolean add(E e) {
-        return list.add(e);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+            boolean answer = tmpList.add(e);
+            list = new ArrayList<>(tmpList);
+            return answer;
+        }
     }
 
     @Override
     public boolean remove(Object o) {
-        return list.remove(o);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+            boolean answer = tmpList.remove(o);
+            list = new ArrayList<>(tmpList);
+            return answer;
+        }
     }
 
     @Override
@@ -66,37 +81,67 @@ public class COWAL<E> implements List<E> {
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        return list.addAll(c);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+            boolean answer = tmpList.addAll(c);
+            list = new ArrayList<>(tmpList);
+            return answer;
+        }
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        return list.addAll(index, c);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+            boolean answer = tmpList.addAll(index, c);
+            list = new ArrayList<>(tmpList);
+            return answer;
+        }
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return list.removeAll(c);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+            boolean answer = tmpList.removeAll(c);
+            list = new ArrayList<>(tmpList);
+            return answer;
+        }
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return list.retainAll(c);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+            boolean answer = tmpList.retainAll(c);
+            list = new ArrayList<>(tmpList);
+            return answer;
+        }
     }
 
     @Override
     public void replaceAll(UnaryOperator<E> operator) {
-        list.replaceAll(operator);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+            tmpList.replaceAll(operator);
+            list = new ArrayList<>(tmpList);
+        }
     }
 
     @Override
     public void sort(Comparator<? super E> c) {
-        list.sort(c);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+            tmpList.sort(c);
+            list = new ArrayList<>(tmpList);
+        }
     }
 
     @Override
     public void clear() {
-        list.clear();
+        synchronized (lock){
+            list = new ArrayList<>();
+        }
     }
 
     @Override
@@ -116,17 +161,31 @@ public class COWAL<E> implements List<E> {
 
     @Override
     public E set(int index, E element) {
-        return list.set(index, element);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+            E answer = tmpList.set(index, element);
+            list = new ArrayList<>(tmpList);
+            return answer;
+        }
     }
 
     @Override
     public void add(int index, E element) {
-        list.add(index, element);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+           tmpList.add(index , element);
+            list = new ArrayList<>(tmpList);
+        }
     }
 
     @Override
     public E remove(int index) {
-        return list.remove(index);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+            E answer = tmpList.remove(index);
+            list = new ArrayList<>(tmpList);
+            return answer;
+        }
     }
 
     @Override
@@ -141,75 +200,23 @@ public class COWAL<E> implements List<E> {
 
     @Override
     public ListIterator<E> listIterator() {
-        return list.listIterator();
+        return new ArrayListIterator<>(list.toArray());
     }
 
     @Override
     public ListIterator<E> listIterator(int index) {
-        return list.listIterator(index);
+        return new ArrayListIterator<>(list.toArray(), index);
+
     }
 
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
-        return list.subList(fromIndex, toIndex);
+        return list.subList(fromIndex, toIndex);//todo
     }
 
     @Override
     public Spliterator<E> spliterator() {
         return list.spliterator();
-    }
-
-    public static <E1> List<E1> of() {
-        return List.of();
-    }
-
-    public static <E1> List<E1> of(E1 e1) {
-        return List.of(e1);
-    }
-
-    public static <E1> List<E1> of(E1 e1, E1 e2) {
-        return List.of(e1, e2);
-    }
-
-    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3) {
-        return List.of(e1, e2, e3);
-    }
-
-    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4) {
-        return List.of(e1, e2, e3, e4);
-    }
-
-    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5) {
-        return List.of(e1, e2, e3, e4, e5);
-    }
-
-    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5, E1 e6) {
-        return List.of(e1, e2, e3, e4, e5, e6);
-    }
-
-    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5, E1 e6, E1 e7) {
-        return List.of(e1, e2, e3, e4, e5, e6, e7);
-    }
-
-    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5, E1 e6, E1 e7, E1 e8) {
-        return List.of(e1, e2, e3, e4, e5, e6, e7, e8);
-    }
-
-    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5, E1 e6, E1 e7, E1 e8, E1 e9) {
-        return List.of(e1, e2, e3, e4, e5, e6, e7, e8, e9);
-    }
-
-    public static <E1> List<E1> of(E1 e1, E1 e2, E1 e3, E1 e4, E1 e5, E1 e6, E1 e7, E1 e8, E1 e9, E1 e10) {
-        return List.of(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);
-    }
-
-    @SafeVarargs
-    public static <E1> List<E1> of(E1... elements) {
-        return List.of(elements);
-    }
-
-    public static <E1> List<E1> copyOf(Collection<? extends E1> coll) {
-        return List.copyOf(coll);
     }
 
     @Override
@@ -219,7 +226,12 @@ public class COWAL<E> implements List<E> {
 
     @Override
     public boolean removeIf(Predicate<? super E> filter) {
-        return list.removeIf(filter);
+        synchronized (lock){
+            ArrayList<E> tmpList = new ArrayList<>(list);
+            boolean answer = tmpList.removeIf(filter);
+            list = new ArrayList<>(tmpList);
+            return answer;
+        }
     }
 
     @Override
