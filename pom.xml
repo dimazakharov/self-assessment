@@ -19,6 +19,7 @@
         <module>http-client</module>
         <module>mini-junit</module>
         <module>tree-traversal</module>
+        <module>persistent-immutable-map</module>
     </modules>
 
     <properties>
