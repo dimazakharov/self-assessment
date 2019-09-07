@@ -20,7 +20,8 @@
         <module>mini-junit</module>
         <module>tree-traversal</module>
         <module>copy-on-write-array-list</module>
-        <module>copy-on-write-array-list</module>
+        <module>persistent-immutable-map</module>
+        <module>file-to-db</module>
     </modules>
 
     <properties>
