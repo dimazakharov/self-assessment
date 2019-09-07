@@ -20,6 +20,7 @@
         <module>mini-junit</module>
         <module>tree-traversal</module>
         <module>persistent-immutable-map</module>
+        <module>file-to-db</module>
     </modules>
 
     <properties>
