@@ -211,7 +211,7 @@ public class COWAL<E> implements List<E> {
 
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
-        return list.subList(fromIndex, toIndex);//todo
+        return new ArrayList<>(list).subList(fromIndex, toIndex);
     }
 
     @Override

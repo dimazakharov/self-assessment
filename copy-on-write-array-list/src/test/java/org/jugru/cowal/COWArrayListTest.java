@@ -54,8 +54,6 @@ public class COWArrayListTest {
             }
 
             Assert.assertEquals(2, testList.size());
-            System.out.println("----");
-            System.out.println(testList.size());
         }
 
 
