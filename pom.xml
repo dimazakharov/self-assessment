@@ -21,6 +21,7 @@
         <module>tree-traversal</module>
         <module>persistent-immutable-map</module>
         <module>file-to-db</module>
+        <module>proxy-server</module>
     </modules>
 
     <properties>
