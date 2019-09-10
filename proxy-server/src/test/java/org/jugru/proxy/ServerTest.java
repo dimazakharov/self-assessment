@@ -1,6 +1,7 @@
 package org.jugru.proxy;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.sun.source.tree.AssertTree;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,16 +40,27 @@ public class ServerTest {
     @Test
     public void ProxyServerTest() throws Exception {
         new ProxyServer().start(resourceUrl, resourcePort, serverPort);
-        HttpResponse<String> response = makeRequestToProxy();
+        HttpResponse<String> response = makeRequestToProxy("");
 
         wireMockServer.verify(getRequestedFor(urlEqualTo("/")));
         Assertions.assertEquals(200, response.statusCode());
         Assertions.assertEquals(requestAnswer, response.body());
     }
 
-    private HttpResponse<String> makeRequestToProxy() throws Exception {
+    @Test
+    public void ProxyServerDownloadTest() throws Exception {
+        new ProxyServer().start(resourceUrl, resourcePort, serverPort);
+        HttpResponse<String> response = makeRequestToProxy("download");
+
+        wireMockServer.verify(getRequestedFor(urlEqualTo("/download")));
+        Assertions.assertEquals(200, response.statusCode());
+        Assertions.assertTrue(response.body().contains("Lorem ipsum dolor sit amet"));
+        Assertions.assertTrue(response.body().contains("anim id est laborum."));
+    }
+
+    private HttpResponse<String> makeRequestToProxy(String param) throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("http://" + serverUrl + ":" + serverPort + "/"))
+                .uri(new URI("http://" + serverUrl + ":" + serverPort + "/" + param))
                 .GET()
                 .build();
 
@@ -64,5 +76,9 @@ public class ServerTest {
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "text/plain")
                         .withBody(requestAnswer)));
+        wireMockServer.stubFor(get(urlEqualTo("/download"))
+                .willReturn(aResponse()
+                        .withHeader("Content-Disposition", "attachment; filename=LoremIpsum.txt")
+                        .withBodyFile("LoremIpsum.txt")));
     }
 }
