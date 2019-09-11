@@ -22,6 +22,7 @@
         <module>copy-on-write-array-list</module>
         <module>persistent-immutable-map</module>
         <module>file-to-db</module>
+        <module>proxy-server</module>
     </modules>
 
     <properties>
