@@ -16,11 +16,11 @@ import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-        COWArrayListTest.GuavaTests.class,
-        COWArrayListTest.Tests.class,
-})
+//@RunWith(Suite.class)
+//@Suite.SuiteClasses({
+//        COWArrayListTest.GuavaTests.class,
+//        COWArrayListTest.Tests.class,
+//})
 public class COWArrayListTest {
 
 
