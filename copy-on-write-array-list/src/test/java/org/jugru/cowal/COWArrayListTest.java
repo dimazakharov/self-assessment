@@ -8,8 +8,6 @@ import junit.framework.TestSuite;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -67,7 +65,7 @@ public class COWArrayListTest {
 
             for (int i = 0; i < 1000; i++) {
                 String generatedString = RandomStringUtils.random(10, false, false);
-                Future<Void> submit = executorService.submit(new sortTask(testList, generatedString));
+                Future<Void> submit = executorService.submit(new SortTask(testList, generatedString));
                 futures.add(submit);
                 expected.add(generatedString);
             }
@@ -107,13 +105,13 @@ public class COWArrayListTest {
         }
     }
 
-    public static class sortTask implements Callable<Void> {
+    public static class SortTask implements Callable<Void> {
 
         private final List<String> testList;
         private final String string;
 
 
-        public sortTask(List<String> testList, String string) {
+        public SortTask(List<String> testList, String string) {
             this.testList = testList;
             this.string = string;
         }
